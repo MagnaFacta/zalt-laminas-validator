@@ -14,6 +14,7 @@ use Laminas\Validator\Exception\InvalidArgumentException;
 use Zalt\Model\Data\FullDataInterface;
 use Zalt\Model\MetaModelInterface;
 use Zalt\Model\Validator\ModelAwareValidatorInterface;
+use Zalt\Model\Validator\NameAwareValidatorInterface;
 use Zalt\Ra\Ra;
 
 /**
@@ -21,13 +22,17 @@ use Zalt\Ra\Ra;
  * @subpackage Validator\Model
  * @since      Class available since version 1.0
  */
-class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator implements ModelAwareValidatorInterface
+class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator
+    implements ModelAwareValidatorInterface, NameAwareValidatorInterface
 {
     public const FOUND = 'found';
 
-    protected array $combo;
+    protected string $name;
 
-    protected string $field;
+    /**
+     * @var array Extra fields to determine uniqueness
+     */
+    protected array $with = [];
 
     /**
      * Validation failure message template definitions
@@ -40,18 +45,20 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator implemen
 
     protected FullDataInterface $model;
 
-    public function __construct($field = null, ...$combo)
+    public function __construct($name = null, ...$with)
     {
-        if (is_array($field)) {
-            $options = $field;
-        } elseif ($field instanceof Traversable) {
-            $options = Ra::to($field);
+        if (is_array($name)) {
+            $options = $name;
+        } elseif ($name instanceof Traversable) {
+            $options = Ra::to($name);
+        } elseif ($name) {
+            $options['name'] = $name;
         } else {
-            $options['field'] = $field;
+            $options = [];
         }
 
-        if ($combo && (! isset($options['combo']))) {
-            $options['combo'] = $combo;
+        if ($with && (! isset($options['with']))) {
+            $options['with'] = $with;
         }
 
         parent::__construct($options);
@@ -65,14 +72,14 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator implemen
         if (! isset($this->model)) {
             throw new InvalidArgumentException(sprintf("No model set for class %s.", get_class($this)));
         }
-        if (! isset($this->field)) {
-            throw new InvalidArgumentException(sprintf("No field set for class %s.", get_class($this)));
+        if (! isset($this->name)) {
+            throw new InvalidArgumentException(sprintf("No name set for class %s.", get_class($this)));
         }
 
-        $filter[$this->field] = $context[$this->field] ?? $value;
-        $this->setValue($filter[$this->field]);
-        if (isset($this->combo)) {
-            foreach ($this->combo as $name) {
+        $filter[$this->name] = $context[$this->name] ?? $value;
+        $this->setValue($filter[$this->name]);
+        if ($this->with) {
+            foreach ($this->with as $name) {
                 if (isset($context[$name])) {
                     $filter[$name] = $context[$name];
                 }
@@ -94,9 +101,15 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator implemen
         return true;
     }
 
-    public function setCombo($combo)
+    public function setWith($with)
     {
-        $this->combo = (array) $combo;
+        if (is_array($with)) {
+            $this->with = $with;
+        } elseif (is_scalar($with)) {
+            $this->with = (array) $with;
+        } else {
+            $this->with = Ra::to($with);
+        }
     }
 
     public function setDataModel(FullDataInterface $model): void
@@ -104,8 +117,8 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator implemen
         $this->model = $model;
     }
 
-    public function setField(string $field)
+    public function setName(string $name): void
     {
-        $this->field = $field;
+        $this->name = $name;
     }
 }
