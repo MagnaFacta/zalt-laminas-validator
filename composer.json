@@ -1,0 +1,50 @@
+{
+  "name": "magnafacta/zalt-laminas-validator",
+  "description": "Zend Alternative Model",
+  "type": "library",
+  "require": {
+    "php": ">=8.1.0",
+    "laminas/laminas-validator": "^2.20",
+    "magnafacta/zalt-model": "2.x-validators-dev",
+    "magnafacta/zalt-util": "dev-main"
+  },
+  "require-dev": {
+    "magnafacta/zalt-loader": "dev-psr-11",
+    "phpunit/phpunit": "10.*"
+  },
+  "authors": [
+    {
+      "name": "Matijs de Jong",
+      "email": "mjong@magnafacta.nl"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Zalt\\Validator\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Zalt\\Validator\\": "test\\"
+    }
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/MagnaFacta/zalt-late.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/MagnaFacta/zalt-loader.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/MagnaFacta/zalt-model.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/MagnaFacta/zalt-util.git"
+    }
+  ]
+}
