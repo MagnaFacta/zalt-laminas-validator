@@ -1,4 +1,4 @@
 composer.phar
 /vendor/
 /test/.phpunit.cache
-
+/test/html-coverage

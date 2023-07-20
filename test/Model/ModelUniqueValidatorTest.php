@@ -11,12 +11,7 @@ declare(strict_types=1);
 namespace Zalt\Validator\Model;
 
 use PHPUnit\Framework\TestCase;
-use Zalt\Loader\ProjectOverloader;
-use Zalt\Loader\ProjectOverloaderFactory;
-use Zalt\Mock\SimpleServiceManager;
-use Zalt\Model\MetaModelLoader;
-use Zalt\Model\MetaModelLoaderFactory;
-use Zalt\Model\Ra\PhpArrayModel;
+use Zalt\Validator\ModelLoadedTrait;
 
 /**
  * @package    Zalt
@@ -25,34 +20,7 @@ use Zalt\Model\Ra\PhpArrayModel;
  */
 class ModelUniqueValidatorTest extends TestCase
 {
-    public function getModelLoaded(array $rows): PhpArrayModel
-    {
-        $loader = $this->getModelLoader();
-
-        $data  = new \ArrayObject($rows);
-        return $loader->createModel(PhpArrayModel::class, 'test', $data);
-    }
-
-    public function getModelLoader(): MetaModelLoader
-    {
-        static $loader;
-
-        if ($loader instanceof MetaModelLoader) {
-            return $loader;
-        }
-
-        $config = [
-            'config' => [],
-        ];
-        $sm     = new SimpleServiceManager($config);
-        $overFc = new ProjectOverloaderFactory();
-        $sm->set(ProjectOverloader::class, $overFc($sm));
-
-        $mmlf   = new MetaModelLoaderFactory();
-        $loader = $mmlf($sm);
-
-        return $loader;
-    }
+    use ModelLoadedTrait;
 
     public function getRows(): array
     {

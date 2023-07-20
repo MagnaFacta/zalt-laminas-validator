@@ -11,10 +11,7 @@ declare(strict_types=1);
 namespace Zalt\Validator\Model;
 
 use Laminas\Validator\Exception\InvalidArgumentException;
-use Zalt\Model\Data\FullDataInterface;
 use Zalt\Model\MetaModelInterface;
-use Zalt\Model\Validator\ModelAwareValidatorInterface;
-use Zalt\Model\Validator\NameAwareValidatorInterface;
 use Zalt\Ra\Ra;
 
 /**
@@ -22,12 +19,9 @@ use Zalt\Ra\Ra;
  * @subpackage Validator\Model
  * @since      Class available since version 1.0
  */
-class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator
-    implements ModelAwareValidatorInterface, NameAwareValidatorInterface
+class ModelUniqueValidator extends AbstractBasicModelValidator
 {
     public const FOUND = 'found';
-
-    protected string $name;
 
     /**
      * @var array Extra fields to determine uniqueness
@@ -43,13 +37,11 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator
         self::FOUND => "A duplicate '%value%' item was found.",
     ];
 
-    protected FullDataInterface $model;
-
     public function __construct($name = null, ...$with)
     {
         if (is_array($name)) {
             $options = $name;
-        } elseif ($name instanceof Traversable) {
+        } elseif ($name instanceof \Traversable) {
             $options = Ra::to($name);
         } elseif ($name) {
             $options['name'] = $name;
@@ -69,12 +61,7 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator
      */
     public function isValid($value, $context = [])
     {
-        if (! isset($this->model)) {
-            throw new InvalidArgumentException(sprintf("No model set for class %s.", get_class($this)));
-        }
-        if (! isset($this->name)) {
-            throw new InvalidArgumentException(sprintf("No name set for class %s.", get_class($this)));
-        }
+        $this->checkSetup();
 
         $filter[$this->name] = $context[$this->name] ?? $value;
         $this->setValue($filter[$this->name]);
@@ -110,15 +97,5 @@ class ModelUniqueValidator extends \Laminas\Validator\AbstractValidator
         } else {
             $this->with = Ra::to($with);
         }
-    }
-
-    public function setDataModel(FullDataInterface $model): void
-    {
-        $this->model = $model;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
 }

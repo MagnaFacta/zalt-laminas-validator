@@ -10,6 +10,7 @@
   },
   "require-dev": {
     "magnafacta/zalt-loader": "dev-psr-11",
+    "phpstan/phpstan": "1.*",
     "phpunit/phpunit": "10.*"
   },
   "authors": [
@@ -49,7 +50,11 @@
   ],
   "scripts": {
     "test": [
+      "@putenv XDEBUG_MODE=coverage",
       "vendor/bin/phpunit --configuration test/phpunit.xml test"
+    ],
+    "stan": [
+      "vendor/bin/phpstan"
     ]
   }
 }
