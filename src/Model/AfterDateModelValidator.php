@@ -18,17 +18,19 @@ namespace Zalt\Validator\Model;
 class AfterDateModelValidator extends AbstractModelDateValidator
 {
     /**
-     * Just to be able to use code completion, so I decided not to use all caps
+     * Error constants
      */
-    public const afterDateMessage = 'afterDateMessage';
-    public const afterDateField = 'afterDateField';
-    public const noPreviousDateMessage = 'noPreviousDateMessage';
-    public const notDateMessage = 'notDateMessage';
-
     public const NOT_AFTER = 'notAfter';
-
     public const NOT_DATE = 'notDate';
     public const NO_VALIDFROM = 'noValidFrom';
+
+    /**
+     * Just to be able to use code completion, but also just in case you want to change the
+     */
+    public static string $afterDateMessageKey = 'afterDateMessage';
+    public static string $afterDateFieldKey = 'afterDateField';
+    public static string $noPreviousDateMessageKey = 'noPreviousDateMessage';
+    public static string $notDateMessageKey = 'notDateMessage';
 
     protected $afterDate;
 
@@ -75,7 +77,7 @@ class AfterDateModelValidator extends AbstractModelDateValidator
 
         if (null === $this->afterDate) {
             // Check model for setting
-            $this->afterDate = $this->model->getMetaModel()->get($this->name, self::afterDateField);
+            $this->afterDate = $this->model->getMetaModel()->get($this->name, self::$afterDateFieldKey);
 //            echo 'After date: ' . $this->afterDate . "\n";
         }
         if (null === $this->afterDate) {
@@ -89,7 +91,7 @@ class AfterDateModelValidator extends AbstractModelDateValidator
         }
 
         if (! $after instanceof \DateTimeInterface) {
-            $this->checkValidatorMessage(self::noPreviousDateMessage, self::NO_VALIDFROM);
+            $this->checkValidatorMessage(self::$noPreviousDateMessageKey, self::NO_VALIDFROM);
             $this->error(self::NO_VALIDFROM);
             return false;
         }
@@ -97,14 +99,14 @@ class AfterDateModelValidator extends AbstractModelDateValidator
 
         if (! $date instanceof \DateTimeInterface) {
             $this->setValue($value);
-            $this->checkValidatorMessage(self::notDateMessage, self::NOT_DATE);
+            $this->checkValidatorMessage(self::$notDateMessageKey, self::NOT_DATE);
             $this->error(self::NOT_DATE);
             return false;
         }
 //        echo 'After: ' . $this->formatDate($after) . ' <= ' . $this->formatDate($after) . "\n";
 
         if ($date->getTimestamp() <= $after->getTimestamp()) {
-            $this->checkValidatorMessage(self::afterDateMessage, self::NOT_AFTER);
+            $this->checkValidatorMessage(self::$afterDateMessageKey, self::NOT_AFTER);
             $this->setFormatFromModel();
             $this->afterValue = $this->formatDate($after);
             $this->error(self::NOT_AFTER);

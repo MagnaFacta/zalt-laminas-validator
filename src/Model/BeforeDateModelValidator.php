@@ -18,17 +18,19 @@ namespace Zalt\Validator\Model;
 class BeforeDateModelValidator extends AbstractModelDateValidator
 {
     /**
-     * Just to be able to use code completion, so I decided not to use all caps
+     * Error constants
      */
-    public const beforeDateMessage = 'beforeDateMessage';
-    public const beforeDateField = 'beforeDateField';
-    public const noPreviousDateMessage = 'noPreviousDateMessage';
-    public const notDateMessage = 'notDateMessage';
-
     public const NOT_BEFORE = 'notBefore';
-
     public const NOT_DATE = 'notDate';
     public const NO_VALIDFROM = 'noValidFrom';
+
+    /**
+     * Just to be able to use code completion, but also just in case you want to change the
+     */
+    public static string $beforeDateMessageKey = 'beforeDateMessage';
+    public static string $beforeDateFieldKey = 'beforeDateField';
+    public static string $noPreviousDateMessageKey = 'noPreviousDateMessage';
+    public static string $notDateMessageKey = 'notDateMessage';
 
     protected $beforeDate;
 
@@ -75,7 +77,7 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
 
         if (null === $this->beforeDate) {
             // Check model for setting
-            $this->beforeDate = $this->model->getMetaModel()->get($this->name, self::beforeDateField);
+            $this->beforeDate = $this->model->getMetaModel()->get($this->name, self::$beforeDateFieldKey);
 //            echo 'Before date: ' . $this->beforeDate . "\n";
         }
         if (null === $this->beforeDate) {
@@ -89,7 +91,7 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
         }
 
         if (! $before instanceof \DateTimeInterface) {
-            $this->checkValidatorMessage(self::noPreviousDateMessage, self::NO_VALIDFROM);
+            $this->checkValidatorMessage(self::$noPreviousDateMessageKey, self::NO_VALIDFROM);
             $this->error(self::NO_VALIDFROM);
             return false;
         }
@@ -97,14 +99,14 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
 
         if (! $date instanceof \DateTimeInterface) {
             $this->setValue($value);
-            $this->checkValidatorMessage(self::notDateMessage, self::NOT_DATE);
+            $this->checkValidatorMessage(self::$notDateMessageKey, self::NOT_DATE);
             $this->error(self::NOT_DATE);
             return false;
         }
 //        echo 'Before: ' . $this->formatDate($before) . ' >= ' . $this->formatDate($before) . "\n";
 
         if ($date->getTimestamp() >= $before->getTimestamp()) {
-            $this->checkValidatorMessage(self::beforeDateMessage, self::NOT_BEFORE);
+            $this->checkValidatorMessage(self::$beforeDateMessageKey, self::NOT_BEFORE);
             $this->setFormatFromModel();
             $this->beforeValue = $this->formatDate($before);
             $this->error(self::NOT_BEFORE);

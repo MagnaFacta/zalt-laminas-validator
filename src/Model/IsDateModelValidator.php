@@ -18,11 +18,15 @@ namespace Zalt\Validator\Model;
 class IsDateModelValidator extends AbstractModelDateValidator
 {
     /**
-     * Just to be able to use code completion, so I decided not to use all caps
+     * Error constants
      */
-    public const notDateMessage = 'notDateMessage';
-
     public const NOT_DATE = 'not date';
+
+
+    /**
+     * Just to be able to use code completion, but also just in case you want to change the
+     */
+    public static string $notDateMessageKey = 'notDateMessage';
 
     /**
      * Validation failure message template definitions
@@ -55,7 +59,7 @@ class IsDateModelValidator extends AbstractModelDateValidator
         }
 
         // Error. Prepare message
-        $this->checkValidatorMessage(self::notDateMessage, self::NOT_DATE);
+        $this->checkValidatorMessage(self::$notDateMessageKey, self::NOT_DATE);
         $this->setFormatFromModel();
         $this->error(self::NOT_DATE);
 

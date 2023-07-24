@@ -34,11 +34,11 @@ class BeforeDateModelValidatorTest extends \PHPUnit\Framework\TestCase
     public static function invalidDateProvider(): array
     {
         return [
-            'invalid date' => [0, '1002-02-2022', 'beforeDateField', BeforeDateModelValidator::notDateMessage, null, "'1002-02-2022' is not a valid date in the format 'dd-mm-yyyy'."],
-            'no previous date' => [2, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::noPreviousDateMessage, null, "Date should be empty if no valid before date is set."],
-            'not before early' => [1, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::beforeDateMessage, null, "The maximum date should be '12-02-1999' or earlier."],
-            'incorrect format' => [0, '10-20-20211', 'beforeDateField', BeforeDateModelValidator::notDateMessage, "bla die bla", "bla die bla"],
-            'not before message' => [1, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::beforeDateMessage, "bla '%beforeValue%' or bla.", "bla '12-02-1999' or bla."],
+            'invalid date' => [0, '1002-02-2022', 'beforeDateField', BeforeDateModelValidator::$notDateMessageKey, null, "'1002-02-2022' is not a valid date in the format 'dd-mm-yyyy'."],
+            'no previous date' => [2, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::$noPreviousDateMessageKey, null, "Date should be empty if no valid before date is set."],
+            'not before early' => [1, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::$beforeDateMessageKey, null, "The maximum date should be '12-02-1999' or earlier."],
+            'incorrect format' => [0, '10-20-20211', 'beforeDateField', BeforeDateModelValidator::$notDateMessageKey, "bla die bla", "bla die bla"],
+            'not before message' => [1, '20-12-2022', 'beforeDateField', BeforeDateModelValidator::$beforeDateMessageKey, "bla '%beforeValue%' or bla.", "bla '12-02-1999' or bla."],
         ];
     }
 
@@ -57,7 +57,7 @@ class BeforeDateModelValidatorTest extends \PHPUnit\Framework\TestCase
         $metaModel = $model->getMetaModel();
         $metaModel->set('datefield', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,
-            BeforeDateModelValidator::beforeDateField => 'beforeDateField',
+            BeforeDateModelValidator::$beforeDateFieldKey => 'beforeDateField',
         ]);
         if ($messageKey) {
             $metaModel->set('datefield', [$messageKey => $newMessage]);
@@ -92,7 +92,7 @@ class BeforeDateModelValidatorTest extends \PHPUnit\Framework\TestCase
         $metaModel = $model->getMetaModel();
         $metaModel->set('datefield', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,
-            BeforeDateModelValidator::beforeDateField => 'beforeDateField',
+            BeforeDateModelValidator::$beforeDateFieldKey => 'beforeDateField',
             ]);
         $metaModel->set('beforeDateField', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,

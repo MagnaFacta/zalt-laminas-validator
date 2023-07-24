@@ -92,7 +92,7 @@ class IsDateModelValidatorTest extends \PHPUnit\Framework\TestCase
         $metaModel = $model->getMetaModel();
         $metaModel->set('datefield', [MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE]);
         if ($newMessage) {
-            $metaModel->set('datefield', 'notDateMessage', $resultMessage);
+            $metaModel->set('datefield', IsDateModelValidator::$notDateMessageKey, $resultMessage);
         }
 
         $validator = new IsDateModelValidator();

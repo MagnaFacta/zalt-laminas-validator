@@ -25,20 +25,20 @@ class AfterDateModelValidatorTest extends \PHPUnit\Framework\TestCase
     public function getRows(): array
     {
         return [
-            0 => ['a' => 'A1', 'datefield' => '2022-02-12', 'afterDateField' => '1999-02-12'],
-            1 => ['a' => 'A2', 'datefield' => '2022-02-12', 'afterDateField' => '2024-02-12'],
-            2 => ['a' => 'A2', 'datefield' => '2022-02-12', 'afterDateField' => null],
+            0 => ['a' => 'A1', 'datefield' => '2022-02-12', AfterDateModelValidator::$afterDateFieldKey => '1999-02-12'],
+            1 => ['a' => 'A2', 'datefield' => '2022-02-12', AfterDateModelValidator::$afterDateFieldKey => '2024-02-12'],
+            2 => ['a' => 'A2', 'datefield' => '2022-02-12', AfterDateModelValidator::$afterDateFieldKey => null],
         ];
     }
 
     public static function invalidDateProvider(): array
     {
         return [
-            'invalid date' => [0, '1002-02-2022', 'afterDateField', AfterDateModelValidator::notDateMessage, null, "'1002-02-2022' is not a valid date in the format 'dd-mm-yyyy'."],
-            'no previous date' => [2, '20-12-2022', 'afterDateField', AfterDateModelValidator::noPreviousDateMessage, null, "Date should be empty if no valid after date is set."],
-            'not after early' => [1, '20-12-2022', 'afterDateField', AfterDateModelValidator::afterDateMessage, null, "The minimum date should be '12-02-2024' or later."],
-            'incorrect format' => [0, '10-20-20211', 'afterDateField', AfterDateModelValidator::notDateMessage, "bla die bla", "bla die bla"],
-            'not after message' => [1, '20-12-2022', 'afterDateField', AfterDateModelValidator::afterDateMessage, "bla '%afterValue%' or bla.", "bla '12-02-2024' or bla."],
+            'invalid date' => [0, '1002-02-2022', 'afterDateField', AfterDateModelValidator::$notDateMessageKey, null, "'1002-02-2022' is not a valid date in the format 'dd-mm-yyyy'."],
+            'no previous date' => [2, '20-12-2022', 'afterDateField', AfterDateModelValidator::$noPreviousDateMessageKey, null, "Date should be empty if no valid after date is set."],
+            'not after early' => [1, '20-12-2022', 'afterDateField', AfterDateModelValidator::$afterDateMessageKey, null, "The minimum date should be '12-02-2024' or later."],
+            'incorrect format' => [0, '10-20-20211', 'afterDateField', AfterDateModelValidator::$notDateMessageKey, "bla die bla", "bla die bla"],
+            'not after message' => [1, '20-12-2022', 'afterDateField', AfterDateModelValidator::$afterDateMessageKey, "bla '%afterValue%' or bla.", "bla '12-02-2024' or bla."],
         ];
     }
 
@@ -57,7 +57,7 @@ class AfterDateModelValidatorTest extends \PHPUnit\Framework\TestCase
         $metaModel = $model->getMetaModel();
         $metaModel->set('datefield', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,
-            AfterDateModelValidator::afterDateField => 'afterDateField',
+            AfterDateModelValidator::$afterDateFieldKey => 'afterDateField',
         ]);
         if ($messageKey) {
             $metaModel->set('datefield', [$messageKey => $newMessage]);
@@ -92,7 +92,7 @@ class AfterDateModelValidatorTest extends \PHPUnit\Framework\TestCase
         $metaModel = $model->getMetaModel();
         $metaModel->set('datefield', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,
-            AfterDateModelValidator::afterDateField => 'afterDateField',
+            AfterDateModelValidator::$afterDateFieldKey => 'afterDateField',
             ]);
         $metaModel->set('afterDateField', [
             MetaModelInterface::TYPE_ID => MetaModelInterface::TYPE_DATE,
