@@ -79,7 +79,7 @@ class AfterDateModelValidator extends AbstractModelDateValidator
             // Check model for setting
             $this->afterDate = $this->model->getMetaModel()->get($this->name, self::$afterDateFieldKey);
         }
-        dump($this->afterDate);
+        
         if (null === $this->afterDate) {
             $after = new \DateTimeImmutable();
         } elseif ($this->afterDate instanceof \DateTimeInterface) {
