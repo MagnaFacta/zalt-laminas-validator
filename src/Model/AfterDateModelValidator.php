@@ -78,14 +78,17 @@ class AfterDateModelValidator extends AbstractModelDateValidator
         if (null === $this->afterDate) {
             // Check model for setting
             $this->afterDate = $this->model->getMetaModel()->get($this->name, self::$afterDateFieldKey);
-//            echo 'After date: ' . $this->afterDate . "\n";
         }
+        dump($this->afterDate);
         if (null === $this->afterDate) {
             $after = new \DateTimeImmutable();
         } elseif ($this->afterDate instanceof \DateTimeInterface) {
             $after = $this->afterDate;
         } elseif (array_key_exists($this->afterDate, $context)) {
-            $after = $this->getDateValue($context[$this->afterDate], $this->afterDate);
+            $after = $context[$this->afterDate];
+            if (! $after instanceof \DateTimeInterface) {
+                $after = $this->getDateValue($after, $this->afterDate);
+            }
         } else {
             $after = false;
         }
@@ -95,7 +98,6 @@ class AfterDateModelValidator extends AbstractModelDateValidator
             $this->error(self::NO_VALIDFROM);
             return false;
         }
-//        echo 'After: ' . $this->formatDate($after) . "\n";
 
         if (! $date instanceof \DateTimeInterface) {
             $this->setValue($value);
