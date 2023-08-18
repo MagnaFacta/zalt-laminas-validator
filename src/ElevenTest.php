@@ -192,7 +192,7 @@ class ElevenTest extends \Laminas\Validator\AbstractValidator
         $count   = count($weights);
 
         //Set the length for the message template
-        $this->_length = $count;
+        $this->length = $count;
         // \MUtil\EchoOut\EchoOut::rs($value, $weights);
 
         // Simple length checks
