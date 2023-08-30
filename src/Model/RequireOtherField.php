@@ -60,12 +60,12 @@ class RequireOtherField extends AbstractBasicModelValidator
     /**
      * @inheritDoc
      */
-    public function isValid($value)
+    public function isValid($value, $context = [])
     {
         $this->setValue((string) $value);
 
         if ($value) {
-            $fieldSet = isset($context[$this->_fieldName]) && $context[$this->_fieldName];
+            $fieldSet = isset($context[$this->fieldName]) && $context[$this->fieldName];
 
             if (! $fieldSet)  {
                 $this->error(self::REQUIRED);
