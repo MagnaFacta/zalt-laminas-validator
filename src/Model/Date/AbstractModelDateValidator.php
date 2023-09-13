@@ -8,10 +8,11 @@ declare(strict_types=1);
  * @author     Matijs de Jong <mjong@magnafacta.nl>
  */
 
-namespace Zalt\Validator\Model;
+namespace Zalt\Validator\Model\Date;
 
 use Laminas\Validator\Exception\InvalidArgumentException;
 use Zalt\Model\MetaModel;
+use Zalt\Validator\Model\AbstractBasicModelValidator;
 
 /**
  * @package    Zalt

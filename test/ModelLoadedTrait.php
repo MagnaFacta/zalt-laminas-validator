@@ -14,6 +14,7 @@ namespace Zalt\Validator;
 use Zalt\Loader\ProjectOverloader;
 use Zalt\Loader\ProjectOverloaderFactory;
 use Zalt\Mock\SimpleServiceManager;
+use Zalt\Model\Data\FullDataInterface;
 use Zalt\Model\MetaModelLoader;
 use Zalt\Model\MetaModelLoaderFactory;
 use Zalt\Model\Ra\PhpArrayModel;
@@ -30,6 +31,7 @@ trait ModelLoadedTrait
         $loader = $this->getModelLoader();
 
         $data  = new \ArrayObject($rows);
+        // @phpstan-ignore return.type
         return $loader->createModel(PhpArrayModel::class, 'test', $data);
     }
 

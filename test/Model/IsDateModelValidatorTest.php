@@ -12,6 +12,7 @@ namespace Zalt\Validator\Model;
 
 use Laminas\Validator\Exception\InvalidArgumentException;
 use Zalt\Model\MetaModelInterface;
+use Zalt\Validator\Model\Date\IsDateModelValidator;
 use Zalt\Validator\ModelLoadedTrait;
 
 /**

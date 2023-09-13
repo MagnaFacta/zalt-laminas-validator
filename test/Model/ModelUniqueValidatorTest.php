@@ -106,8 +106,6 @@ class ModelUniqueValidatorTest extends TestCase
     /**
      * @dataProvider inValidWithProvider
      *
-     * @param array $keys
-     * @param string $field
      * @param mixed $options
      * @param array $context
      * @return void
@@ -145,8 +143,6 @@ class ModelUniqueValidatorTest extends TestCase
     /**
      * @dataProvider isValidWithProvider
      *
-     * @param array $keys
-     * @param string $field
      * @param mixed $options
      * @param array $context
      * @return void

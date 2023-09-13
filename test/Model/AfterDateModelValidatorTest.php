@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Zalt\Validator\Model;
 
 use Zalt\Model\MetaModelInterface;
+use Zalt\Validator\Model\Date\AfterDateModelValidator;
 use Zalt\Validator\ModelLoadedTrait;
 
 /**

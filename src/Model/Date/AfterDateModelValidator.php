@@ -8,33 +8,33 @@ declare(strict_types=1);
  * @author     Matijs de Jong <mjong@magnafacta.nl>
  */
 
-namespace Zalt\Validator\Model;
+namespace Zalt\Validator\Model\Date;
 
 /**
  * @package    Zalt
  * @subpackage Validator\Model
  * @since      Class available since version 1.0
  */
-class BeforeDateModelValidator extends AbstractModelDateValidator
+class AfterDateModelValidator extends AbstractModelDateValidator
 {
     /**
      * Error constants
      */
-    public const NOT_BEFORE = 'notBefore';
+    public const NOT_AFTER = 'notAfter';
     public const NOT_DATE = 'notDate';
     public const NO_VALIDFROM = 'noValidFrom';
 
     /**
      * Just to be able to use code completion, but also just in case you want to change the
      */
-    public static string $beforeDateMessageKey = 'beforeDateMessage';
-    public static string $beforeDateFieldKey = 'beforeDateField';
+    public static string $afterDateMessageKey = 'afterDateMessage';
+    public static string $afterDateFieldKey = 'afterDateField';
     public static string $noPreviousDateMessageKey = 'noPreviousDateMessage';
     public static string $notDateMessageKey = 'notDateMessage';
 
-    protected $beforeDate;
+    protected $afterDate;
 
-    protected $beforeValue;
+    protected $afterValue;
 
     /**
      * Validation failure message template definitions
@@ -42,22 +42,22 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
      * @var array<string, string>
      */
     protected array $messageTemplates = [
-        self::NOT_BEFORE => "The maximum date should be '%beforeValue%' or earlier.",
+        self::NOT_AFTER => "The minimum date should be '%afterValue%' or later.",
         self::NOT_DATE => "'%value%' is not a valid date in the format '%format%'.",
-        self::NO_VALIDFROM => "Date should be empty if no valid before date is set."
+        self::NO_VALIDFROM => "Date should be empty if no valid after date is set."
     ];
 
     protected array $messageVariables = [
-        'beforeValue' => 'beforeValue',
+        'afterValue' => 'afterValue',
         'format' => 'format',
-        ];
+    ];
 
     /**
-     * @param $beforeDate
+     * @param $afterDate
      * /
-    public function __construct($beforeDate = null)
+    public function __construct($afterDate = null)
     {
-        $this->beforeDate = $beforeDate;
+    $this->afterDate = $afterDate;
     }
 
     /**
@@ -75,27 +75,29 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
         $date = $this->getDateValue($value, $this->name);
         $this->setFormatFromModel();
 
-        if (null === $this->beforeDate) {
+        if (null === $this->afterDate) {
             // Check model for setting
-            $this->beforeDate = $this->model->getMetaModel()->get($this->name, self::$beforeDateFieldKey);
-//            echo 'Before date: ' . $this->beforeDate . "\n";
+            $this->afterDate = $this->model->getMetaModel()->get($this->name, self::$afterDateFieldKey);
         }
-        if (null === $this->beforeDate) {
-            $before = new \DateTimeImmutable();
-        } elseif ($this->beforeDate instanceof \DateTimeInterface) {
-            $before = $this->beforeDate;
-        } elseif (array_key_exists($this->beforeDate, $context)) {
-            $before = $this->getDateValue($context[$this->beforeDate], $this->beforeDate);
+        
+        if (null === $this->afterDate) {
+            $after = new \DateTimeImmutable();
+        } elseif ($this->afterDate instanceof \DateTimeInterface) {
+            $after = $this->afterDate;
+        } elseif (array_key_exists($this->afterDate, $context)) {
+            $after = $context[$this->afterDate];
+            if (! $after instanceof \DateTimeInterface) {
+                $after = $this->getDateValue($after, $this->afterDate);
+            }
         } else {
-            $before = false;
+            $after = false;
         }
 
-        if (! $before instanceof \DateTimeInterface) {
+        if (! $after instanceof \DateTimeInterface) {
             $this->checkValidatorMessage(self::$noPreviousDateMessageKey, self::NO_VALIDFROM);
             $this->error(self::NO_VALIDFROM);
             return false;
         }
-//        echo 'Before: ' . $this->formatDate($before) . "\n";
 
         if (! $date instanceof \DateTimeInterface) {
             $this->setValue($value);
@@ -103,13 +105,13 @@ class BeforeDateModelValidator extends AbstractModelDateValidator
             $this->error(self::NOT_DATE);
             return false;
         }
-//        echo 'Before: ' . $this->formatDate($before) . ' >= ' . $this->formatDate($before) . "\n";
+//        echo 'After: ' . $this->formatDate($after) . ' <= ' . $this->formatDate($after) . "\n";
 
-        if ($date->getTimestamp() >= $before->getTimestamp()) {
-            $this->checkValidatorMessage(self::$beforeDateMessageKey, self::NOT_BEFORE);
+        if ($date->getTimestamp() <= $after->getTimestamp()) {
+            $this->checkValidatorMessage(self::$afterDateMessageKey, self::NOT_AFTER);
             $this->setFormatFromModel();
-            $this->beforeValue = $this->formatDate($before);
-            $this->error(self::NOT_BEFORE);
+            $this->afterValue = $this->formatDate($after);
+            $this->error(self::NOT_AFTER);
 //            dump($this->getMessages());
             return false;
         }
