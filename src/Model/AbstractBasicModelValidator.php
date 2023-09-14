@@ -12,8 +12,8 @@ namespace Zalt\Validator\Model;
 
 use Laminas\Validator\Exception\InvalidArgumentException;
 use Zalt\Model\Data\FullDataInterface;
-use Zalt\Model\Validator\ModelAwareValidatorInterface;
-use Zalt\Model\Validator\NameAwareValidatorInterface;
+use Zalt\Model\ModelAwareInterface;
+use Zalt\Model\ModelFieldNameAwareInterface;
 
 /**
  * @package    Zalt
@@ -21,7 +21,7 @@ use Zalt\Model\Validator\NameAwareValidatorInterface;
  * @since      Class available since version 1.0
  */
 abstract class AbstractBasicModelValidator extends \Laminas\Validator\AbstractValidator
-    implements ModelAwareValidatorInterface, NameAwareValidatorInterface
+    implements ModelAwareInterface, ModelFieldNameAwareInterface
 {
     protected string $name;
 

@@ -17,7 +17,7 @@ use Zalt\Model\Data\FullDataInterface;
  * @subpackage Validator\Model
  * @since      Class available since version 1.0
  */
-class RequireOtherField extends AbstractBasicModelValidator
+class RequireOtherFieldValidator extends AbstractBasicModelValidator
 {
     /**
      * Error codes
