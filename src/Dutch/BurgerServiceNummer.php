@@ -35,10 +35,10 @@ class BurgerServiceNummer extends \Zalt\Validator\ElevenTest
      * @param  mixed $value
      * @return boolean
      */
-    public function isValid($value, array $context = []): bool
+    public function isValid($value): bool
     {
-        if (trim($value, '*')) {
-            return parent::isValid($value, $context);
+        if ($value && trim((string) $value, '*')) {
+            return parent::isValid((string) $value);
         }
         return true;
     }

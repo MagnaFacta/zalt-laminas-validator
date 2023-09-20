@@ -170,7 +170,7 @@ class ElevenTest extends \Laminas\Validator\AbstractValidator
      * @param  mixed $value
      * @return boolean
      */
-    public function isValid($value, array $context = []): bool
+    public function isValid($value): bool
     {
         $this->setValue((string) $value);
 
