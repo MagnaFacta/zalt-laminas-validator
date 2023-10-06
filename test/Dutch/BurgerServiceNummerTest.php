@@ -43,5 +43,4 @@ class BurgerServiceNummerTest extends \PHPUnit\Framework\TestCase
         $result = $validator->isValid($input);
         $this->assertEquals($output, $result);
     }
-
 }

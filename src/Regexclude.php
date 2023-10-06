@@ -105,7 +105,7 @@ class Regexclude extends \Laminas\Validator\AbstractValidator
 
         $this->setValue($value);
 
-        $status = @preg_match($this->pattern, $value);
+        $status = @preg_match($this->pattern, (string) $value);
         if (false === $status) {
             $this->error(self::ERROROUS);
             return false;
