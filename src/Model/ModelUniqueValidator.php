@@ -23,6 +23,8 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
 {
     public const FOUND = 'found';
 
+    public static string $withFields = 'uniqueWithFields';
+
     /**
      * @var array Extra fields to determine uniqueness
      */
@@ -56,6 +58,18 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
         parent::__construct($options);
     }
 
+    protected function checkSetup(): void
+    {
+        parent::checkSetup();
+
+        if (! $this->with) {
+            $withs = $this->model->getMetaModel()->get($this->name, self::$withFields);
+            if ($withs) {
+                $this->setWith($withs);
+            }
+        }
+    }
+
     /**
      * @inheritDoc
      */
@@ -73,13 +87,15 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
             }
         }
         $keys = $this->model->getMetaModel()->getKeys();
-        foreach ($keys as $name) {
-            if (isset($context[$name]) && $context[$name]) {
+        foreach ($keys as $id => $name) {
+            // Use the id value (usually from request) for check
+            if (isset($context[$id]) && $context[$id]) {
+                $filter[MetaModelInterface::FILTER_NOT][$name] = $context[$id];
+            } elseif (isset($context[$name]) && $context[$name]) {
                 $filter[MetaModelInterface::FILTER_NOT][$name] = $context[$name];
             }
         }
 
-        // dump($filter);
         if ($this->model->loadCount($filter)) {
             $this->error(self::FOUND);
             return false;
