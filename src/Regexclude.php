@@ -53,7 +53,7 @@ class Regexclude extends \Laminas\Validator\AbstractValidator
     public function __construct(?string $pattern = null)
     {
         parent::__construct();
-        if ($this->pattern && !$pattern) {
+        if (isset($this->pattern) && !$pattern) {
             return;
         }
 

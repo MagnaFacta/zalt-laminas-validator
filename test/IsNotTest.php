@@ -17,7 +17,7 @@ namespace Zalt\Validator;
  */
 class IsNotTest extends \PHPUnit\Framework\TestCase
 {
-    public static function provideFilters()
+    public static function provideValues()
     {
         return [
             'ok' => [[1, 2, 3], 4, true],
@@ -26,7 +26,7 @@ class IsNotTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @dataProvider provideFilters
+     * @dataProvider provideValues
      * @param $input
      * @param $output
      * @return void
