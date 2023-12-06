@@ -25,6 +25,21 @@ class IsNotTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+
+    public function testMessage()
+    {
+        $msg = 'bla';
+
+        $validator = new IsNot([1, 2, 3],$msg);
+        $result = $validator->isValid(4);
+        $this->assertEquals(true, $result);
+
+        $result = $validator->isValid(1);
+        $this->assertEquals(false, $result);
+
+        $this->assertEquals([IsNot::NOT_ONE => $msg], $validator->getMessages());
+    }
+
     /**
      * @dataProvider provideValues
      * @param $input
