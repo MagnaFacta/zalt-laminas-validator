@@ -6,7 +6,8 @@
     "php": ">=8.1.0",
     "laminas/laminas-validator": "^2.20",
     "magnafacta/zalt-model": "2.x-dev",
-    "magnafacta/zalt-util": "dev-main"
+    "magnafacta/zalt-util": "dev-main",
+    "magnafacta/zalt-laminas-filter": "dev-negative-digit-filter"
   },
   "require-dev": {
     "magnafacta/zalt-loader": "dev-psr-11",
@@ -46,6 +47,10 @@
     {
       "type": "git",
       "url": "https://github.com/MagnaFacta/zalt-util.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/MagnaFacta/zalt-laminas-filter.git"
     }
   ],
   "scripts": {
