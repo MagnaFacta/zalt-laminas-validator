@@ -7,7 +7,7 @@
     "laminas/laminas-validator": "^2.20",
     "magnafacta/zalt-model": "2.x-dev",
     "magnafacta/zalt-util": "dev-main",
-    "magnafacta/zalt-laminas-filter": "dev-negative-digit-filter"
+    "magnafacta/zalt-laminas-filter": "dev-main"
   },
   "require-dev": {
     "magnafacta/zalt-loader": "dev-psr-11",

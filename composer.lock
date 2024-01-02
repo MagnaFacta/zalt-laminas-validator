@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c06310e0da4330d47af52c00fc510ab3",
+    "content-hash": "7331b78564885c8f430f0cbd665dda4c",
     "packages": [
         {
             "name": "dflydev/fig-cookies",
@@ -560,11 +560,11 @@
         },
         {
             "name": "magnafacta/zalt-laminas-filter",
-            "version": "dev-negative-digit-filter",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MagnaFacta/zalt-laminas-filter.git",
-                "reference": "b611f8f865c88fa72663c45dcdafe6f8a8a1ae1e"
+                "reference": "2fc79babe67612acf995d962d209e883c6424140"
             },
             "require": {
                 "laminas/laminas-filter": "^2.17",
@@ -577,6 +577,7 @@
                 "phpstan/phpstan": "1.*",
                 "phpunit/phpunit": "10.*"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -604,7 +605,7 @@
                 }
             ],
             "description": "Zend Alternative Laminas Filters",
-            "time": "2024-01-02T13:25:52+00:00"
+            "time": "2023-11-01T17:12:25+00:00"
         },
         {
             "name": "magnafacta/zalt-late",
@@ -1642,12 +1643,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "4ff4b69e91561456797b8231a9bb4192d5b30d8d"
+                "reference": "bbf92d4582a3514ec72d56095864c1e60dc3c444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/4ff4b69e91561456797b8231a9bb4192d5b30d8d",
-                "reference": "4ff4b69e91561456797b8231a9bb4192d5b30d8d",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/bbf92d4582a3514ec72d56095864c1e60dc3c444",
+                "reference": "bbf92d4582a3514ec72d56095864c1e60dc3c444",
                 "shasum": ""
             },
             "require": {
@@ -1730,7 +1731,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-02T08:10:17+00:00"
+            "time": "2024-01-02T13:35:35+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -2050,12 +2051,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "a2ab2ec1a462e53016de8e8d5e8912bfd62ea681"
+                "reference": "fcc43b7d0c2c3007012627e55a584b1fd8d45d97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/a2ab2ec1a462e53016de8e8d5e8912bfd62ea681",
-                "reference": "a2ab2ec1a462e53016de8e8d5e8912bfd62ea681",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/fcc43b7d0c2c3007012627e55a584b1fd8d45d97",
+                "reference": "fcc43b7d0c2c3007012627e55a584b1fd8d45d97",
                 "shasum": ""
             },
             "require": {
@@ -2137,7 +2138,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-18T09:25:29+00:00"
+            "time": "2024-01-02T13:35:35+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -2598,12 +2599,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9e32c78a00da3ff38f78031810959ab6d9fe56ad"
+                "reference": "bf093b109c2da9ef0df4d010792e1f6d5818963f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9e32c78a00da3ff38f78031810959ab6d9fe56ad",
-                "reference": "9e32c78a00da3ff38f78031810959ab6d9fe56ad",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/bf093b109c2da9ef0df4d010792e1f6d5818963f",
+                "reference": "bf093b109c2da9ef0df4d010792e1f6d5818963f",
                 "shasum": ""
             },
             "require": {
@@ -2653,7 +2654,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-01T14:22:37+00:00"
+            "time": "2024-01-02T13:42:16+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
