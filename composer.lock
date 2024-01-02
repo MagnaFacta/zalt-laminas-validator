@@ -479,12 +479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "2a60d288ffa1acb84321c85a066dcbf96da34a50"
+                "reference": "c7a78445b007126d8cea16a05a3cc6de70fabaab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/2a60d288ffa1acb84321c85a066dcbf96da34a50",
-                "reference": "2a60d288ffa1acb84321c85a066dcbf96da34a50",
+                "url": "https://api.github.com/repos/laminas/laminas-validator/zipball/c7a78445b007126d8cea16a05a3cc6de70fabaab",
+                "reference": "c7a78445b007126d8cea16a05a3cc6de70fabaab",
                 "shasum": ""
             },
             "require": {
@@ -556,7 +556,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-12-18T01:12:24+00:00"
+            "time": "2024-01-02T12:18:36+00:00"
         },
         {
             "name": "magnafacta/zalt-laminas-filter",
@@ -564,7 +564,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MagnaFacta/zalt-laminas-filter.git",
-                "reference": "d3186e0f15968d1570991171cc27a01117822556"
+                "reference": "b611f8f865c88fa72663c45dcdafe6f8a8a1ae1e"
             },
             "require": {
                 "laminas/laminas-filter": "^2.17",
@@ -604,7 +604,7 @@
                 }
             ],
             "description": "Zend Alternative Laminas Filters",
-            "time": "2024-01-02T11:22:16+00:00"
+            "time": "2024-01-02T13:25:52+00:00"
         },
         {
             "name": "magnafacta/zalt-late",
