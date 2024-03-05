@@ -26,7 +26,7 @@ class BeforeDateModelValidatorTest extends \PHPUnit\Framework\TestCase
     public function getRows(): array
     {
         return [
-            0 => ['a' => 'A1', 'datefield' => '2022-02-12', 'beforeDateField' => '2024-02-12'],
+            0 => ['a' => 'A1', 'datefield' => '2022-02-12', 'beforeDateField' => '2034-02-12'],
             1 => ['a' => 'A2', 'datefield' => '2022-02-12', 'beforeDateField' => '1999-02-12'],
             2 => ['a' => 'A2', 'datefield' => '2022-02-12', 'beforeDateField' => null],
         ];
