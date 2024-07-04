@@ -39,7 +39,7 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
         self::FOUND => "A duplicate '%value%' item was found.",
     ];
 
-    public function __construct($name = null, ...$with)
+    public function __construct($name = null, $with = null)
     {
         if (is_array($name)) {
             $options = $name;
