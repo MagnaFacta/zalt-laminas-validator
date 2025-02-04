@@ -23,6 +23,8 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
 {
     public const FOUND = 'found';
 
+    protected array|null $names = null;
+
     public static string $withFields = 'uniqueWithFields';
 
     /**
@@ -42,7 +44,8 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
     public function __construct($name = null, $with = null)
     {
         if (is_array($name)) {
-            $options = $name;
+            $options['name'] = reset($name);
+            $this->names = $name;
         } elseif ($name instanceof \Traversable) {
             $options = Ra::to($name);
         } elseif ($name) {
@@ -79,9 +82,17 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
 
         $filter[$this->name] = $context[$this->name] ?? $value;
         $this->setValue($filter[$this->name]);
+
+        if ($this->names) {
+            foreach ($this->names as $name) {
+                if (!isset($filter[$name]) && isset($context[$name])) {
+                    $filter[$name] = $context[$name];
+                }
+            }
+        }
         if ($this->with) {
             foreach ($this->with as $name) {
-                if (isset($context[$name])) {
+                if (isset($context[$name]) && (!is_string($context[$name]) || strlen($context[$name]))) {
                     $filter[$name] = $context[$name];
                 }
             }
