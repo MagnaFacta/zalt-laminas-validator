@@ -22,8 +22,8 @@ use function is_int;
 use function is_string;
 
 /**
- * Copie3d Laminas\Validator\InArray into this one as that validator is final
- * 
+ * Copied Laminas\Validator\InArray into this one as that validator is final
+ *
  * @package    Zalt
  * @subpackage Validator
  * @since      Class available since version 1.0
