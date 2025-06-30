@@ -44,8 +44,16 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
     public function __construct($name = null, $with = null)
     {
         if (is_array($name)) {
-            $options['name'] = reset($name);
-            $this->names = $name;
+            if (isset($name['name'])) {
+                $options = $name;
+                $this->names = (array) $options['name'];
+            } else {
+                if (isset($name[1])) {
+                    $options['with'] = $name[1];
+                }
+                $options['name'] = reset($name);
+                $this->names = (array) $name;
+            }
         } elseif ($name instanceof \Traversable) {
             $options = Ra::to($name);
         } elseif ($name) {
