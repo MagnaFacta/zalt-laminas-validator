@@ -1,24 +1,25 @@
 <?php
 
-namespace Laminas\Validator;
-
-use Laminas\Filter\Digits as DigitsFilter;
+namespace Zalt\Validator;
 
 use function is_float;
+
 use function is_int;
 use function is_string;
+use Laminas\Validator\AbstractValidator;
+use Zalt\Filter\Integer as IntegerFilter;
 
 /** @final */
-class Digits extends AbstractValidator
+class Integer extends AbstractValidator
 {
-    public const NOT_DIGITS   = 'notDigits';
-    public const STRING_EMPTY = 'digitsStringEmpty';
-    public const INVALID      = 'digitsInvalid';
+    public const NOT_INTEGER  = 'notInteger';
+    public const STRING_EMPTY = 'integerStringEmpty';
+    public const INVALID      = 'integerInvalid';
 
     /**
-     * Digits filter used for validation
+     * Integer filter used for validation
      *
-     * @var DigitsFilter|null
+     * @var IntegerFilter|null
      */
     protected static $filter;
 
@@ -28,13 +29,13 @@ class Digits extends AbstractValidator
      * @var array
      */
     protected $messageTemplates = [
-        self::NOT_DIGITS   => 'The input must contain only digits',
+        self::NOT_INTEGER  => 'The input must contain only digits and an optional leading minus sign',
         self::STRING_EMPTY => 'The input is an empty string',
         self::INVALID      => 'Invalid type given. String, integer or float expected',
     ];
 
     /**
-     * Returns true if and only if $value only contains digit characters
+     * Returns true if and only if $value only contains digit characters and an optional leading minus sign
      *
      * @param  mixed $value
      * @return bool
@@ -54,11 +55,11 @@ class Digits extends AbstractValidator
         }
 
         if (null === static::$filter) {
-            static::$filter = new DigitsFilter();
+            static::$filter = new IntegerFilter();
         }
 
         if ($this->getValue() !== static::$filter->filter($this->getValue())) {
-            $this->error(self::NOT_DIGITS);
+            $this->error(self::NOT_INTEGER);
             return false;
         }
 
