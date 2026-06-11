@@ -10,9 +10,9 @@
     "magnafacta/zalt-util": "^1.0.0"
   },
   "require-dev": {
-    "magnafacta/zalt-loader": "^1.0.0",
-    "phpstan/phpstan": "1.*",
-    "phpunit/phpunit": "10.5"
+    "magnafacta/zalt-loader": "^1.0.1",
+    "phpstan/phpstan": "^1.12",
+    "phpunit/phpunit": "^10.5.32"
   },
   "authors": [
     {
