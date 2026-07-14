@@ -106,11 +106,12 @@ class ModelUniqueValidator extends AbstractBasicModelValidator
             }
         }
         $keys = $this->model->getMetaModel()->getKeys();
+
         foreach ($keys as $id => $name) {
             // Use the id value (usually from request) for check
-            if (isset($context[$id]) && $context[$id]) {
+            if (isset($context[$id]) && strlen($context[$id])) {
                 $filter[MetaModelInterface::FILTER_NOT][$name] = $context[$id];
-            } elseif (isset($context[$name]) && $context[$name]) {
+            } elseif (isset($context[$name]) && strlen($context[$name])) {
                 $filter[MetaModelInterface::FILTER_NOT][$name] = $context[$name];
             }
         }
